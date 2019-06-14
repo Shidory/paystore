@@ -55,7 +55,7 @@ ROOT_URLCONF = 'paystore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['products/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
