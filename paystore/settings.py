@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['paystore/templates/paystore/',
                  'products/templates',
-                 'templates'
-                ],
+                 'templates',
+                 'accounts/templates/accounts',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
