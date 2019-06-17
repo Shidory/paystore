@@ -29,6 +29,7 @@ urlpatterns = [
     path('products/', include('products.urls')),
     #path('', include('products.urls')),
     path('', views.index, name="index"),
+    path('account/', include('accounts.urls')),
 ]
 
 # A Utiliser si DEBUG est activé
