@@ -1,17 +1,16 @@
 from django.shortcuts import render
 
+from .models import Product
 
 def home(request):
-    if request.user.is_authenticated():
-        username = "Shidory"
-        context = {"username": request.user}
-    else:
-        context = {"username": request.user}
+    products = Product.objects.all()
     template = 'products/home.html'
+    context = {"products": products}
     return render(request, template, context)
 
 
 def all(request):
-    context = {"products": Product.objects.all()}
+    products = Product.objects.all()
+    context = {"products": products}
     template = 'products/all.html'
     return render(request, template, context)
