@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style_account/style.css' %}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Pay Store | Login</title>
+    </head>
+    <body class="text-center">
+        <div class="container">
+            <div class="form-group">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li>
+                        <div class="alert alert-success">{{message}}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                <form method="post" action="" class="form-signin">
+                    {% csrf_token %}
+                    <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.first_name}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.last_name}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.username}}
+                            {{ form.username.errors}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.email}}
+                            {{ form.email.errors}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.password}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            {{ form.password_conf}}
+                            {{ form.password_conf.errors}}
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+                    </div>
+                    <p class="mt-5 mb-3 text-muted">&copy; BB 2019</p>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
