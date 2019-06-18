@@ -1,3 +1,4 @@
+#from django.core.urlresolvers import reverse
 from django.db import models
 
 class Product(models.Model):
@@ -16,6 +17,13 @@ class Product(models.Model):
 
     class Meta:
         unique_together = ('title', 'slug')
+
+    def get_price(self):
+        return self.price
+
+    def get_absolute_url(self):
+        #return reverse("single_product", kwargs={"slug": self.slug})
+        pass
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
