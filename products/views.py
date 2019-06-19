@@ -18,7 +18,9 @@ def all(request):
 def single(request, slug):
     try:
         product = Product.objects.get(slug=slug)
-        context = {"product": product}
+        #images = product.productimage_set.all()
+        images = ProductImage.objects.filter(product=product)
+        context = {"product": product, "images": images}
         template = 'products/single.html'
         return render(request, template, context)
     except:
@@ -30,7 +32,8 @@ def search(request):
     except:
         q = None
     if q:
-        context = {"query": q}
+        products = Product.objects.filter(title_icontains=q)
+        context = {"query": q, "products": products}
         template = 'products/results.html'
     else:
         template = 'products/home.html'

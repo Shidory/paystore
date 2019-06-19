@@ -1,4 +1,4 @@
-#from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 
 class Product(models.Model):
@@ -22,7 +22,7 @@ class Product(models.Model):
         return self.price
 
     def get_absolute_url(self):
-        #return reverse("single_product", kwargs={"slug": self.slug})
+        return reverse("single_product", kwargs={"slug": self.slug})
         pass
 
 class ProductImage(models.Model):
