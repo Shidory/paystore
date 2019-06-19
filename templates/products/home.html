@@ -36,7 +36,8 @@
                     {% endfor %}
                         <div class="card-body">
                             <a href="{{ product.get_absolute_url }}">
-                                <hr><h5 class="card-title">{{product.title}}</h5></a>
+                                <hr><h5 class="card-title">{{product.title}}</h5>
+                            </a>
                             <p class="card-text">{{ product.description | truncatewords:15 }}</p>
                             <p class="card-text">
                                 <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Shop now</a>
