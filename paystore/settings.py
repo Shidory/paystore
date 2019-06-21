@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'carts',
     'products',
     'accounts',
 ]
@@ -60,6 +61,7 @@ TEMPLATES = [
                  'products/templates',
                  'templates',
                  'accounts/templates/accounts',
+                 'carts/templates/carts',
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
