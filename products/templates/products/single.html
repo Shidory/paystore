@@ -20,12 +20,38 @@
             {% endfor %}
         </div>
         <div class="col-sm-8">
-            <h1>{{ product.title }}<a class="pull-right" href="#">Add to cart</a></h1>
-            <hr>
-            Price: {{ product.price }}<br>
-            Shipping: Free with $25+ purchase.
-            <hr>
+            <div class="col-sm-8 pull-left"></div>
+                <h1>{{ product.title }}
+    <!--                <a class="pull-right" href="{% url 'update_cart' product.slug %}?qty=12">Add to cart</a>-->
+                </h1>
+            </div>
+            <div class="col-sm-4 pull-right"></div>
+                <form class="form" method="GET" action="{% url 'update_cart' product.slug %}">
+                    <input class="btn btn-danger btn-block" type="submit" value="Add to cart">
+                    <input class="form-control" type="number" name="qty" value="1">
+
+                    <select class="form-control" name="color" id="">
+                        <options value="red">Red</options>
+                        <options value="green">Green</options>
+                        <options Value="blue">Blue</options>
+                    </select>
+
+                    <select class="form-control" name="size" id="">
+                        <options value="sm">Sm</options>
+                        <options value="med">Med</options>
+                        <options Value="lrg">Lrg</options>
+                    </select>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                Price: {{ product.price }}<br>
+                Shipping: Free with $25+ purchase.
+                <hr>
+            </div>
+            <div class="col-sm-12">
             {{ product.description | linebreaks }}
+            </div>
         </div>
     </div>
 {% endblock %}
