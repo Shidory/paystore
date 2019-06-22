@@ -21,26 +21,32 @@
         </div>
         <div class="col-sm-8">
             <div class="col-sm-8 pull-left"></div>
-                <h1>{{ product.title }}
-    <!--                <a class="pull-right" href="{% url 'update_cart' product.slug %}?qty=12">Add to cart</a>-->
-                </h1>
+                <h1>{{ product.title }}</h1>
             </div>
             <div class="col-sm-4 pull-right"></div>
-                <form class="form" method="GET" action="{% url 'update_cart' product.slug %}">
+                <form class="form" method="POST" action="{% url 'add_to_cart' product.slug %}">{% csrf_token %}
                     <input class="btn btn-danger btn-block" type="submit" value="Add to cart">
                     <input class="form-control" type="number" name="qty" value="1">
 
-                    <select class="form-control" name="color" id="">
-                        <options value="red">Red</options>
-                        <options value="green">Green</options>
-                        <options Value="blue">Blue</options>
-                    </select>
+                    {% if product.vartion_set.all %}
 
-                    <select class="form-control" name="size" id="">
-                        <options value="sm">Sm</options>
-                        <options value="med">Med</options>
-                        <options Value="lrg">Lrg</options>
-                    </select>
+                        {% if product.vartion_set.sizes %}
+                            <select class="form-control" name="size">
+                                {% for item in product.variation_set.sizes %}
+                                    <options value="{{ item.title | lower }}">{{ item.title | capfirst</options>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+
+                        {% if product.vartion_set.colors %}
+                            <select class="form-control" name="color">
+                                {% for item in product.variation_set.colors %}
+                                    <options value="{{ item.title | lower }}">{{ item.title | capfirst</options>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+
+                    {% endif %}
                 </form>
             </div>
             <div class="col-sm-12">
