@@ -10,6 +10,13 @@ def view(request):
         the_id = None
     if the_id:
         cart = Cart.objects.get(id=the_id)
+        new_total = 0.00
+        for item in cart.cartitem_set.all():
+            line_total = float(item.product.price) * item.quantity
+            new_total += line_total
+        request.session['items_total'] = cart.cartitem_set.count()
+        cart.total = new_total
+        cart.save()
         context = {"cart": cart}
     else:
         empty_message = "Your cart is empty, please keep shopping."
@@ -18,7 +25,18 @@ def view(request):
     return render(request, template, context)
 
 def remove_from_cart(request, id):
-    pass
+    try:
+        the_id = request.session['cart_id']
+        cart = Cart.objects.get(id=the_id)
+    except:
+        return HttpResponseRedirect(reverse("cart"))
+
+    cartitem = CartItem.objects.get(id=id)
+    cartitem.cart = None
+    cartitem.save()
+    # Send message
+    return HttpResponseRedirect(reverse("cart"))
+
 
 def add_to_cart(request, slug):
     request.session.set_expiry(120000)
@@ -57,12 +75,7 @@ def add_to_cart(request, slug):
             cart_item.variations.add(*product_var)
         cart_item.quantity = qty
         cart_item.save()
-        new_total = 0.00
-        for item in cart.cartitem_set.all():
-            line_total = float(item.product.price) * item.quantity
-            new_total += line_total
-        request.session['items_total'] = cart.cartitem_set.count()
-        cart.total = new_total
-        cart.save()
+        # Success message
         return HttpResponseRedirect(reverse("cart"))
+    # Error message
     return HttpResponseRedirect(reverse("cart"))
