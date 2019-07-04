@@ -1,8 +1,10 @@
 import time
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from carts.models import Cart
 from .models import Order
+from .utils import id_generator
 from django.urls import reverse
 
 def orders(request):
@@ -10,6 +12,7 @@ def orders(request):
     template = "user.html"
     return render(request, template, context)
 
+@login_required
 def checkout(request):
     try:
         the_id = request.session['cart_id']
@@ -17,12 +20,20 @@ def checkout(request):
     except:
         the_id = None
         return HttpResponseRedirect(reverse("cart"))
-    new_order, created = Order.objects.get_or_create(cart=cart)
-    if created:
-        new_order.order_id = str(time.time())
+    try:
+        new_order = Order.objects.get(cart=cart)
+
+    except Order.DoesNotExist:
+        new_order = Order()
+        new_order.cart = cart
+        new_order.user = request.user
+        new_order.order_id = id_generator()
         new_order.save()
+    except:
+        return HttpResponseRedirect(reverse("cart"))
+
     if new_order.status == "Finished":
-        cart.delete()
+        #cart.delete()
         del request.session['cart_id']
         del request.session['items_total']
         return HttpResponseRedirect(reverse("cart"))
