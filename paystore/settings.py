@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'carts',
     'products',
     'accounts',
@@ -63,6 +64,7 @@ TEMPLATES = [
                  'templates',
                  'accounts/templates/accounts',
                  'carts/templates/carts',
+                 'orders/templates/orders',
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,3 +139,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static", "static_root")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
+
+# Crispy
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
