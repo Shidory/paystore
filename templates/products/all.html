@@ -1,9 +1,37 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block title %} Pay Store | Products {% endblock %}
+
+{% block style %}
+    .jumbotron{
+        color: black;
+    }
+{% endblock %}
+
 {% block content %}
-    <ul>
+    <div class="row">
         {% for product in products %}
-            <li> {{product}} {{product.price}} </li>
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    {% for item in product.productimage_set.all %}
+                        {% if item.featured %}
+                            <img class="card-img-top" src="{{MEDIA_URL}}{{item.image}}" alt="Iphone X">
+                        {% endif %}
+                    {% endfor %}
+                        <div class="card-body">
+                            <a href="{{ product.get_absolute_url }}">
+                                <hr><h5 class="card-title">{{product.title}}</h5>
+                            </a>
+                            <p class="card-text">{{ product.description | truncatewords:15 }}</p>
+                            <p class="card-text">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Shop now</a>
+                            </p>
+                        </div>
+                </div>
+            </div>
+                {% cycle "" "" "</div><br/><hr/><div class='row'>" %}
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
