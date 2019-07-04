@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
-from . import views
 
 # Configuration du service static
 
@@ -26,11 +25,11 @@ admin.autodiscover()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/', include('products.urls')),
     path('', include('products.urls')),
-    #path('', views.index, name="index"),
+    path('products/', include('products.urls')),
     path('account/', include('accounts.urls')),
     path('cart/', include('carts.urls')),
+    path('orders/', include('orders.urls')),
 ]
 
 # A Utiliser si DEBUG est activé
