@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block style %}
+    .jumbotron{
+        color: black;
+    }
+{% endblock %}
+
+{% block jumbotron2 %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Navbar example</h1>
+            <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll,
+                this navbar remains in its original position and moves with the rest of the page.</p>
+            <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">View navbar docs &raquo;</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    {% for item in product.productimage_set.all %}
+                        {% if item.featured %}
+                            <img class="card-img-top" src="{{MEDIA_URL}}{{item.image}}" alt="Iphone X">
+                        {% endif %}
+                    {% endfor %}
+                        <div class="card-body">
+                            <a href="{{ product.get_absolute_url }}">
+                                <hr><h5 class="card-title">{{product.title}}</h5>
+                            </a>
+                            <p class="card-text">{{ product.description | truncatewords:15 }}</p>
+                            <p class="card-text">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Shop now</a>
+                            </p>
+                        </div>
+                </div>
+            </div>
+                {% cycle "" "" "</div><br/><hr/><div class='row'>" %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
