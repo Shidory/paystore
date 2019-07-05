@@ -28,11 +28,11 @@ def single(request, slug):
 
 def search(request):
     try:
-        q = request.Get.get('q')
+        q = request.GET.get('q')
     except:
         q = None
     if q:
-        products = Product.objects.filter(title_icontains=q)
+        products = Product.objects.filter(title__icontains=q)
         context = {"query": q, "products": products}
         template = 'products/results.html'
     else:
